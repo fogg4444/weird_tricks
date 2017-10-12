@@ -1,5 +1,5 @@
 # React Native Development
-===
+---
 
 ### Logging an IOS device on mac
 https://stackoverflow.com/questions/7277804/ios-iphone-ipad-ipodtouch-view-real-time-console-log-terminal
@@ -23,4 +23,4 @@ brew uninstall libimobiledevice
 brew install --HEAD libimobiledevice
 ```
 
-===
+---
