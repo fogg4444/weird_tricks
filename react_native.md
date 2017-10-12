@@ -12,6 +12,7 @@ brew install libimobiledevice
 idevice_id --list // list available device UDIDs
 idevicesyslog -u <device udid>`
 
+https://github.com/libimobiledevice/libimobiledevice/issues/356#issuecomment-248486535
 `The underlying issue appears to be with the version of libimobiledevice available via homebrew (currently 1.2.0). The simplest workaround until a new release is cut is likely to install from head:
 
 brew uninstall libimobiledevice
