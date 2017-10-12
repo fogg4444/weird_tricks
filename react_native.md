@@ -1,6 +1,63 @@
 # React Native Development
+
 ---
 
+### React Native atob() / btoa() not working without remote JS debugging
+https://stackoverflow.com/questions/42829838/react-native-atob-btoa-not-working-without-remote-js-debugging
+
+Here you go (https://sketch.expo.io/BktW0xdje). Create a separate component (e.g. Base64.js), import it and it's ready to use. For instance Base64.btoa('123');
+
+// @flow
+// Inspired by: https://github.com/davidchambers/Base64.js/blob/master/base64.js
+
+```
+const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+const Base64 = {
+  btoa: (input:string = '')  => {
+    let str = input;
+    let output = '';
+
+    for (let block = 0, charCode, i = 0, map = chars;
+    str.charAt(i | 0) || (map = '=', i % 1);
+    output += map.charAt(63 & block >> 8 - i % 1 * 8)) {
+
+      charCode = str.charCodeAt(i += 3/4);
+
+      if (charCode > 0xFF) {
+        throw new Error("'btoa' failed: The string to be encoded contains characters outside of the Latin1 range.");
+      }
+
+      block = block << 8 | charCode;
+    }
+
+    return output;
+  },
+
+  atob: (input:string = '') => {
+    let str = input.replace(/=+$/, '');
+    let output = '';
+
+    if (str.length % 4 == 1) {
+      throw new Error("'atob' failed: The string to be decoded is not correctly encoded.");
+    }
+    for (let bc = 0, bs = 0, buffer, i = 0;
+      buffer = str.charAt(i++);
+
+      ~buffer && (bs = bc % 4 ? bs * 64 + buffer : buffer,
+        bc++ % 4) ? output += String.fromCharCode(255 & bs >> (-2 * bc & 6)) : 0
+    ) {
+      buffer = chars.indexOf(buffer);
+    }
+
+    return output;
+  }
+};
+
+export default Base64;
+```
+
+
+---
 ### Logging an IOS device on mac
 https://stackoverflow.com/questions/7277804/ios-iphone-ipad-ipodtouch-view-real-time-console-log-terminal
 
