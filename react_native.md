@@ -1,6 +1,16 @@
 # React Native Development
 
 ---
+###Auto kill react-native packager on run-android command
+Add these lines to a shell script in your root folder
+`lsof -n -i4TCP:8081 | sed '1 d' | awk '{print $2}' | xargs kill -9
+react-native run-android`
+
+Add this to your package.json scripts
+`"andy": "sh runandy.sh"`
+
+Run with command: `npm run andy`
+---
 
 ### React Native atob() / btoa() not working without remote JS debugging
 https://stackoverflow.com/questions/42829838/react-native-atob-btoa-not-working-without-remote-js-debugging
