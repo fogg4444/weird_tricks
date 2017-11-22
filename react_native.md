@@ -1,6 +1,16 @@
 # React Native Development
 
 ---
+### Fastlane gives error like: `Cannot proceed with delivery: an existing transporter instance is currently uploading this package`
+
+Basically, you need to clear out the transport tokens. This can happen if you were to close out of Xcode while in the middle of submitting an app to iTunes Connect.
+
+/Users/<username>/.itmstransporter/UploadTokens/
+Delete any .token files in this directory.
+
+https://stackoverflow.com/a/5334320/5684465
+
+---
 ###Auto kill react-native packager on run-android command
 Add these lines to a shell script in your root folder
 `lsof -n -i4TCP:8081 | sed '1 d' | awk '{print $2}' | xargs kill -9
